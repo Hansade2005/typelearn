@@ -4,7 +4,12 @@ import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
- plugins: [react()],
+ plugins: [react({
+ babel: {
+ plugins: ['babel-plugin-macros', 'babel-plugin-styled-components'],
+ presets: ['@babel/preset-react', '@babel/preset-typescript']
+ }
+ })],
  resolve: {
  alias: {
  "@": path.resolve(__dirname, "./src"),
@@ -29,4 +34,23 @@ export default defineConfig({
  'process.env': process.env,
  },
  envPrefix: ['VITE_', 'TAILWIND_'],
+ build: {
+ sourcemap: true,
+ minify: 'terser',
+ terserOptions: {
+ compress: {
+ drop_console: false,
+ },
+ },
+ rollupOptions: {
+ onwarn(warning, warn) {
+ if (warning.code === 'UNUSED_EXTERNAL_IMPORT') return;
+ warn(warning);
+ },
+ },
+ },
+ esbuild: {
+ jsx: 'automatic',
+ jsxInject: `import React from 'react'`,
+ },
 })
