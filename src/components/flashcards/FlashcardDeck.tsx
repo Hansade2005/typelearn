@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { VocabularyCard } from '@/types/vocabulary';
 import { Flashcard } from './Flashcard';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface FlashcardDeckProps {
  cards: VocabularyCard[];
@@ -17,7 +17,7 @@ export function FlashcardDeck({ cards, onReviewComplete }: FlashcardDeckProps) {
 
  const handleNext = () => {
  if (currentIndex < cards.length -1) {
- setDirection1);
+ setDirection(1);
  setCurrentIndex(currentIndex +1);
  }
  };
@@ -36,6 +36,7 @@ export function FlashcardDeck({ cards, onReviewComplete }: FlashcardDeckProps) {
 
  return (
  <div className="space-y-6">
+ <AnimatePresence mode="wait">
  <motion.div
  key={currentCard.id}
  initial={{ x: direction *100, opacity:0 }}
@@ -45,6 +46,7 @@ export function FlashcardDeck({ cards, onReviewComplete }: FlashcardDeckProps) {
  >
  <Flashcard card={currentCard} onReview={handleReview} />
  </motion.div>
+ </AnimatePresence>
 
  <div className="flex justify-between">
  <Button

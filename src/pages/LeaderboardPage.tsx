@@ -42,7 +42,7 @@ function LeaderboardPage() {
  if (error) {
  return (
  <div className="text-center text-red-500 py-8">
-error}
+ {error}
  </div>
  );
  }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { VocabularyCard } from '@/types/vocabulary';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface FlashcardProps {
  card: VocabularyCard;
@@ -18,20 +18,34 @@ export function Flashcard({ card, onReview }: FlashcardProps) {
 
  return (
  <motion.div
- className="w-full max-w-md mx-auto"
+ className="w-full max-w-md mx-auto perspective-1000"
  initial={false}
  animate={{ rotateY: isFlipped ?180 :0 }}
- transition={{ duration:0.6 }}
- style={{ perspective:1000 }}
+ transition={{ duration:0.6, ease: 'easeInOut' }}
  >
  <Card className="h-64 flex items-center justify-center cursor-pointer" onClick={handleFlip}>
+ <AnimatePresence mode="wait">
  {!isFlipped ? (
- <div className="text-center p-6">
+ <motion.div
+ key="front"
+ initial={{ opacity:0, rotateY:180 }}
+ animate={{ opacity:1, rotateY:0 }}
+ exit={{ opacity:0, rotateY: -180 }}
+ transition={{ duration:0.3 }}
+ className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center"
+ >
  <h3 className="text-2xl font-bold mb-2">{card.word}</h3>
  <p className="text-gray-500">Click to see the translation</p>
- </div>
+ </motion.div>
  ) : (
- <div className="text-center p-6">
+ <motion.div
+ key="back"
+ initial={{ opacity:0, rotateY:180 }}
+ animate={{ opacity:1, rotateY:0 }}
+ exit={{ opacity:0, rotateY: -180 }}
+ transition={{ duration:0.3 }}
+ className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center"
+ >
  <h3 className="text-2xl font-bold mb-2">{card.translation}</h3>
  <p className="text-gray-500 mb-4">How well did you remember it?</p>
  <div className="flex justify-center space-x-2">
@@ -44,13 +58,15 @@ export function Flashcard({ card, onReview }: FlashcardProps) {
  e.stopPropagation();
  onReview(ease);
  }}
+ className="w-8 h-8 rounded-full"
  >
  {ease}
  </Button>
  ))}
  </div>
- </div>
+ </motion.div>
  )}
+ </AnimatePresence>
  </Card>
  </motion.div>
  );
