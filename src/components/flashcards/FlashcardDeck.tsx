@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { VocabularyCard } from '@/types/vocabulary';
 import { Flashcard } from './Flashcard';
 import { Button } from '@/components/ui/button';
@@ -36,7 +36,7 @@ export function FlashcardDeck({ cards, onReviewComplete }: FlashcardDeckProps) {
 
  return (
  <div className="space-y-6">
- <AnimatePresence mode="wait">
+ <AnimatePresence mode="wait" initial={false}>
  <motion.div
  key={currentCard.id}
  initial={{ x: direction *100, opacity:0 }}
