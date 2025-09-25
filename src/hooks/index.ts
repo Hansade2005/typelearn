@@ -1,11 +1,12 @@
-export { useLocalStorage } from './useLocalStorage'
-export { useDebounce } from './useDebounce'
-export { useOnClickOutside } from './useOnClickOutside'
-export { useMediaQuery } from './useMediaQuery'
-export { useCopyToClipboard } from './useCopyToClipboard'
-export { useInterval } from './useInterval'
-export { usePrevious } from './usePrevious'
-export { useToggle } from './useToggle'
-export { useMobile } from './useMobile'
-export { useToast } from './useToast'
-export { useTheme, ThemeProvider } from './useTheme'
+export { ThemeProvider, useTheme } from './useTheme';
+export { useAuth } from './useAuth';
+export { useCopyToClipboard } from './useCopyToClipboard';
+export { useDebounce } from './useDebounce';
+export { useInterval } from './useInterval';
+export { useLocalStorage } from './useLocalStorage';
+export { useMediaQuery } from './useMediaQuery';
+export { useMobile } from './useMobile';
+export { useOnClickOutside } from './useOnClickOutside';
+export { usePrevious } from './usePrevious';
+export { useToast } from './useToast';
+export { useToggle } from './useToggle';
