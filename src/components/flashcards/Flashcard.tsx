@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { VocabularyCard } from '@/types/vocabulary';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, Star } from 'lucide-react';
+import { Volume2, Star, Check, X, RefreshCw } from 'lucide-react';
 
 interface FlashcardProps {
-  card: VocabularyCard & { isFavorite: boolean };
+  card: VocabularyCard & { isFavorite?: boolean };
   onReview: (ease: number) => void;
   onMarkFavorite: (id: string) => void;
 }
@@ -34,6 +34,7 @@ export function Flashcard({ card, onReview, onMarkFavorite }: FlashcardProps) {
         className="h-64 flex items-center justify-center cursor-pointer relative overflow-hidden"
         onClick={handleFlip}
       >
+        {/* Favorite Button */}
         <Button
           variant="ghost"
           size="icon"
@@ -43,7 +44,9 @@ export function Flashcard({ card, onReview, onMarkFavorite }: FlashcardProps) {
             onMarkFavorite(card.id);
           }}
         >
-          <Star className={`h-5 w-5 ${card.isFavorite ? 'fill-yellow-400 text-yellow-400' : ''}`} />
+          <Star
+            className={`h-5 w-5 ${card.isFavorite ? 'fill-yellow-400 text-yellow-400' : ''}`}
+          />
         </Button>
 
         <AnimatePresence mode="wait">
@@ -80,25 +83,27 @@ export function Flashcard({ card, onReview, onMarkFavorite }: FlashcardProps) {
               className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-indigo-500 to-purple-600 text-white"
             >
               <h3 className="text-2xl font-bold mb-2">{card.translation}</h3>
-              <CardContent>
-                <p className="text-indigo-100 mb-4">How well did you remember it?</p>
-                <div className="flex justify-center space-x-2">
-                  {[1, 2, 3, 4, 5].map((ease) => (
-                    <Button
-                      key={ease}
-                      size="sm"
-                      variant={ease <= 3 ? 'outline' : 'default'}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onReview(ease);
-                      }}
-                      className={`w-8 h-8 rounded-full ${ease <= 3 ? 'text-white border-white hover:bg-white/10' : 'bg-white text-indigo-600 hover:bg-white/90'}`}
-                    >
-                      {ease}
-                    </Button>
-                  ))}
-                </div>
-              </CardContent>
+              <p className="text-indigo-100 mb-4">How well did you remember it?</p>
+              <div className="flex justify-center space-x-2">
+                {[1, 2, 3, 4, 5].map((ease) => (
+                  <Button
+                    key={ease}
+                    size="sm"
+                    variant={ease <= 3 ? 'outline' : 'default'}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onReview(ease);
+                    }}
+                    className={`w-8 h-8 rounded-full ${
+                      ease <= 3
+                        ? 'text-white border-white hover:bg-white/10'
+                        : 'bg-white text-indigo-600 hover:bg-white/90'
+                    }`}
+                  >
+                    {ease}
+                  </Button>
+                ))}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

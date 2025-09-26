@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface FlashcardDeckProps {
-  cards: (VocabularyCard & { isFavorite: boolean })[];
+  cards: (VocabularyCard & { isFavorite?: boolean })[];
   onReviewComplete: (card: VocabularyCard, ease: number) => void;
   onMarkFavorite: (id: string) => void;
 }

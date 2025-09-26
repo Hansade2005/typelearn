@@ -10,6 +10,7 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+// ✅ Custom hook that encapsulates theme logic
 function useThemeState() {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === 'undefined') return 'system';
@@ -65,8 +66,9 @@ function useThemeState() {
   return { theme, setTheme, resolvedTheme };
 }
 
+// ✅ Provider component
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const themeContext = useThemeState();
+  const themeContext = useThemeState(); // ✅ Now it's a valid custom hook
 
   return (
     <ThemeContext.Provider value={themeContext}>
@@ -75,11 +77,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// ✅ Custom hook for consumers
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (context === undefined) {
     throw new Error('useTheme must be used within a ThemeProvider');
-  }}
+  }
   return context;
 }
 
