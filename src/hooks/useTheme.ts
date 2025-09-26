@@ -1,30 +1,36 @@
-import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 
+// Define theme types
 type Theme = 'light' | 'dark' | 'system';
 
+// Define context type
 interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   resolvedTheme: 'light' | 'dark';
 }
 
+// Create context with undefined default value
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-// ✅ Custom hook that encapsulates theme logic
-function useThemeState() {
+// Theme provider component (logic only - no JSX)
+export function ThemeProviderLogic() {
+  // Initialize theme state with localStorage or default to 'system'
   const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === 'undefined') return 'system';
     try {
-      const stored = localStorage.getItem('theme');
-      if (stored === 'light' || stored === 'dark' || stored === 'system') {
-        return stored as Theme;
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'light' || stored === 'dark' || stored === 'system') {
+          return stored;
+        }
       }
-    } catch (e) {
-      // Ignore localStorage errors
+    } catch (error) {
+      // Silently handle localStorage errors (non-breaking)
     }
     return 'system';
   });
 
+  // Initialize resolved theme state
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('dark');
 
   useEffect(() => {
@@ -34,25 +40,29 @@ function useThemeState() {
       try {
         let resolved: 'light' | 'dark' = 'dark';
 
+        // Determine the resolved theme based on current theme setting
         if (theme === 'system') {
-          resolved = window.matchMedia('(prefers-color-scheme: dark)').matches
-            ? 'dark'
-            : 'light';
+          resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         } else {
           resolved = theme;
         }
 
+        // Update state and apply theme classes
         setResolvedTheme(resolved);
         root.classList.remove('light', 'dark');
         root.classList.add(resolved);
+
+        // Save theme to localStorage
         localStorage.setItem('theme', theme);
-      } catch (e) {
-        // Silent fail
+      } catch (error) {
+        // Silently handle theme update errors (non-breaking)
       }
     };
 
+    // Initial theme update
     updateTheme();
 
+    // Listen for system theme changes
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
       if (theme === 'system') {
@@ -67,18 +77,7 @@ function useThemeState() {
   return { theme, setTheme, resolvedTheme };
 }
 
-// ✅ Provider component
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const themeContext = useThemeState(); // ✅ Now it's a valid custom hook
-
-  return (
-    <ThemeContext.Provider value={themeContext}>
-      {children}
-    </ThemeContext.Provider>
-  );
-}
-
-// ✅ Custom hook for consumers
+// Custom hook for using theme context
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (context === undefined) {
@@ -87,4 +86,5 @@ export function useTheme() {
   return context;
 }
 
+// Export context for provider implementation elsewhere
 export { ThemeContext };
