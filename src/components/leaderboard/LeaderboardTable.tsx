@@ -9,7 +9,7 @@ interface LeaderboardTableProps {
 }
 
 export function LeaderboardTable({ entries }: LeaderboardTableProps) {
- const getMedalColor = (rank: number) => {
+ const getMedalColor = (rank: number): string => {
  switch (rank) {
  case1: return 'gold';
  case2: return 'silver';
