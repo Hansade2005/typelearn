@@ -34,6 +34,11 @@ export function FlashcardDeck({ cards, onReviewComplete }: FlashcardDeckProps) {
  handleNext();
  };
 
+ const handleMarkFavorite = (id: string) => {
+ // Implement favorite marking functionality
+ console.log(`Marking card ${id} as favorite`);
+ };
+
  return (
  <div className="space-y-6">
  <AnimatePresence mode="wait" initial={false}>
@@ -44,7 +49,11 @@ export function FlashcardDeck({ cards, onReviewComplete }: FlashcardDeckProps) {
  exit={{ x: direction * -100, opacity:0 }}
  transition={{ type: 'spring', stiffness:300, damping:30 }}
  >
- <Flashcard card={currentCard} onReview={handleReview} />
+ <Flashcard
+ card={currentCard}
+ onReview={handleReview}
+ onMarkFavorite={handleMarkFavorite}
+ />
  </motion.div>
  </AnimatePresence>
 

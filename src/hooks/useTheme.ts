@@ -77,6 +77,17 @@ export function ThemeProviderLogic() {
  return { theme, setTheme, resolvedTheme };
 }
 
+// Theme provider component with JSX wrapper
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+ const themeContext = ThemeProviderLogic();
+
+ return (
+ <ThemeContext.Provider value={themeContext}>
+ {children}
+ </ThemeContext.Provider>
+ );
+}
+
 // Custom hook for using theme context
 export function useTheme() {
  const context = useContext(ThemeContext);
