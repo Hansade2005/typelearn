@@ -7,9 +7,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface FlashcardDeckProps {
  cards: VocabularyCard[];
  onReviewComplete: (card: VocabularyCard, ease: number) => void;
+ onMarkFavorite: (id: string) => void;
 }
 
-export function FlashcardDeck({ cards, onReviewComplete }: FlashcardDeckProps) {
+export function FlashcardDeck({ cards, onReviewComplete, onMarkFavorite }: FlashcardDeckProps) {
  const [currentIndex, setCurrentIndex] = useState(0);
  const [direction, setDirection] = useState(0);
 
@@ -34,11 +35,6 @@ export function FlashcardDeck({ cards, onReviewComplete }: FlashcardDeckProps) {
  handleNext();
  };
 
- const handleMarkFavorite = (id: string) => {
- // Implement favorite marking functionality
- console.log(`Marking card ${id} as favorite`);
- };
-
  return (
  <div className="space-y-6">
  <AnimatePresence mode="wait" initial={false}>
@@ -52,7 +48,7 @@ export function FlashcardDeck({ cards, onReviewComplete }: FlashcardDeckProps) {
  <Flashcard
  card={currentCard}
  onReview={handleReview}
- onMarkFavorite={handleMarkFavorite}
+ onMarkFavorite={onMarkFavorite}
  />
  </motion.div>
  </AnimatePresence>

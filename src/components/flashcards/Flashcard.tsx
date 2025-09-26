@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Volume2, Star, Check, X, RefreshCw } from 'lucide-react';
 
 interface FlashcardProps {
- card: VocabularyCard;
+ card: VocabularyCard & { isFavorite: boolean };
  onReview: (ease: number) => void;
  onMarkFavorite: (id: string) => void;
 }
