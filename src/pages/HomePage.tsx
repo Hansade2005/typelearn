@@ -115,9 +115,9 @@ export default function HomePage() {
  </div>
  </div>
  <div className="mt-4">
- <h3 className="text-xl font-semibold text-gray-800 mb-2">Learn Spanish in30 Days</h3>
+ <h3 className="text-xl font-semibold text-gray-800 mb-2">Learn Spanish in 30 Days</h3>
  <p className="text-gray-600">
- Our comprehensive course helps you build conversational Spanish skills in just30 days.
+ Our comprehensive course helps you build conversational Spanish skills in just 30 days.
  </p>
  </div>
  </div>
