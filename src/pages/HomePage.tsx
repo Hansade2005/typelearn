@@ -42,7 +42,7 @@ const testimonials = [
  {
  name: 'Michael Chen',
  role: 'Language Enthusiast',
- content: 'I've tried many language learning apps, but TypeLearn stands out with its personalized approach and excellent progress tracking. I've made incredible progress in just a few months.'
+ content: 'I\'ve tried many language learning apps, but TypeLearn stands out with its personalized approach and excellent progress tracking. I\'ve made incredible progress in just a few months.'
  },
  {
  name: 'Emma Rodriguez',

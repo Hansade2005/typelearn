@@ -57,7 +57,8 @@ function useThemeState() {
     const handleChange = () => {
       if (theme === 'system') {
         updateTheme();
-      }};
+      }
+    };
 
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
