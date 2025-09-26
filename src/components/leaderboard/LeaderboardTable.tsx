@@ -11,14 +11,10 @@ interface LeaderboardTableProps {
 export function LeaderboardTable({ entries }: LeaderboardTableProps) {
   const getMedalColor = (rank: number): string => {
     switch (rank) {
-      case 1:
-        return 'gold';
-      case 2:
-        return 'silver';
-      case 3:
-        return 'bronze';
-      default:
-        return 'gray';
+      case 1: return 'gold';
+      case 2: return 'silver';
+      case 3: return 'bronze';
+      default: return 'gray';
     }
   };
 
@@ -31,7 +27,7 @@ export function LeaderboardTable({ entries }: LeaderboardTableProps) {
             <TableHead>User</TableHead>
             <TableHead>Score</TableHead>
             <TableHead>Streak</TableHead>
-            <TableHead>Last Active</TableHead>
+            <TableHead>Last Activity</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -65,7 +61,7 @@ export function LeaderboardTable({ entries }: LeaderboardTableProps) {
                 </Badge>
               </TableCell>
               <TableCell className="text-gray-500">
-                {new Date(entry.lastActive).toLocaleDateString()}
+                {new Date(entry.lastActivity).toLocaleDateString()}
               </TableCell>
             </TableRow>
           ))}
