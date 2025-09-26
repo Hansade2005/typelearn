@@ -54,7 +54,8 @@ export function Flashcard({ card, onReview, onMarkFavorite }: FlashcardProps) {
  transition={{ duration:0.3 }}
  className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center"
  >
- <h3 className="text-2xl font-bold mb-2">{card.word}</h3n <p className="text-gray-500 mb-4">Click to see the translation</p>
+ <h3 className="text-2xl font-bold mb-2">{card.word}</h3>
+ <p className="text-gray-500 mb-4">Click to see the translation</p>
  <Button
  variant="outline"
  size="icon"

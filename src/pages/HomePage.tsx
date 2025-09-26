@@ -68,7 +68,7 @@ export default function HomePage() {
  <section className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
  <div className="container mx-auto px-4 py-24 flex flex-col md:flex-row items-center">
  <motion.div
- initial={{ opacity:0, x:-50 }}
+ initial={{ opacity:0, x: -50 }}
  animate={{ opacity:1, x:0 }}
  transition={{ duration:0.8 }}
  className="md:w-1/2 mb-12 md:mb-0"
@@ -133,7 +133,7 @@ export default function HomePage() {
  initial={{ opacity:0, y:20 }}
  whileInView={{ opacity:1, y:0 }}
  transition={{ duration:0.5 }}
- viewport={{ once:true }}
+ viewport={{ once: true }}
  className="text-center mb-16"
  >
  <h2 className="text-3xl font-bold mb-4">Why Choose TypeLearn?</h2>
@@ -149,7 +149,7 @@ export default function HomePage() {
  initial={{ opacity:0, y:20 }}
  whileInView={{ opacity:1, y:0 }}
  transition={{ duration:0.5, delay: index *0.1 }}
- viewport={{ once:true }}
+ viewport={{ once: true }}
  >
  <Link to={feature.link} className="block h-full">
  <Card className="h-full hover:shadow-lg transition-shadow hover:bg-indigo-50">
@@ -180,7 +180,7 @@ export default function HomePage() {
  initial={{ opacity:0, y:20 }}
  whileInView={{ opacity:1, y:0 }}
  transition={{ duration:0.5 }}
- viewport={{ once:true }}
+ viewport={{ once: true }}
  className="text-center mb-16"
  >
  <h2 className="text-3xl font-bold mb-4">What Our Users Say</h2>
@@ -194,7 +194,7 @@ export default function HomePage() {
  key={currentTestimonial}
  initial={{ opacity:0, y:20 }}
  animate={{ opacity:1, y:0 }}
- exit={{ opacity:0, y:-20 }}
+ exit={{ opacity:0, y: -20 }}
  transition={{ duration:0.5 }}
  >
  <Card className="bg-indigo-50">
@@ -235,7 +235,7 @@ export default function HomePage() {
  initial={{ opacity:0, y:20 }}
  whileInView={{ opacity:1, y:0 }}
  transition={{ duration:0.5 }}
- viewport={{ once:true }}
+ viewport={{ once: true }}
  >
  <h2 className="text-3xl font-bold mb-6">Ready to Start Your Language Journey?</h2>
  <p className="text-xl mb-8 max-w-2xl mx-auto">
