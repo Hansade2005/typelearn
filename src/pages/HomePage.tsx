@@ -2,34 +2,34 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import { motion } from 'framer-motion';
-import { BookOpen, Users, Target, Award, ChevronRight, PlayCircle } from 'lucide-react';
+import { BookOpen, Users, Target, Award, ChevronRight, PlayCircle, Languages, Clock, TrendingUp, Globe } from 'lucide-react';
 
 const features = [
  {
- icon: BookOpen,
- title: 'Interactive Lessons',
- description: 'Engage with interactive lessons that make learning fun and effective.',
+ icon: Languages,
+ title: 'Multiple Languages',
+ description: 'Learn from a wide selection of languages with comprehensive courses.',
  link: '/lessons'
  },
  {
- icon: Users,
- title: 'Community Learning',
- description: 'Join a community of language learners and practice together.',
- link: '/leaderboard'
+ icon: Clock,
+ title: 'Flexible Learning',
+ description: 'Study at your own pace with our adaptive learning system.',
+ link: '/lessons'
  },
  {
- icon: Target,
- title: 'Personalized Path',
- description: 'Follow a personalized learning path tailored to your goals.',
- link: '/skill-tree'
- },
- {
- icon: Award,
- title: 'Track Your Progress',
- description: 'Monitor your progress and achieve your language learning milestones.',
+ icon: TrendingUp,
+ title: 'Track Progress',
+ description: 'Monitor your improvement with detailed statistics and insights.',
  link: '/streak'
+ },
+ {
+ icon: Globe,
+ title: 'Global Community',
+ description: 'Connect with learners worldwide and practice together.',
+ link: '/leaderboard'
  }
 ];
 
@@ -42,7 +42,7 @@ const testimonials = [
  {
  name: 'Michael Chen',
  role: 'Language Enthusiast',
- content: 'I\'ve tried many language learning apps, but TypeLearn stands out with its personalized approach and excellent progress tracking. I\'ve made incredible progress in just a few months.'
+ content: 'I've tried many language learning apps, but TypeLearn stands out with its personalized approach and excellent progress tracking. I've made incredible progress in just a few months.'
  },
  {
  name: 'Emma Rodriguez',
@@ -152,7 +152,7 @@ export default function HomePage() {
  viewport={{ once:true }}
  >
  <Link to={feature.link} className="block h-full">
- <Card className="h-full hover:shadow-lg transition-shadow">
+ <Card className="h-full hover:shadow-lg transition-shadow hover:bg-indigo-50">
  <CardHeader className="flex flex-row items-center space-x-4">
  <div className="bg-indigo-100 p-3 rounded-full">
  <feature.icon className="h-6 w-6 text-indigo-600" />
@@ -160,7 +160,7 @@ export default function HomePage() {
  <CardTitle>{feature.title}</CardTitle>
  </CardHeader>
  <CardContent>
- <p className="text-gray-600">{feature.description}</p>
+ <CardDescription>{feature.description}</CardDescription>
  <div className="mt-4 flex items-center text-indigo-600 font-medium">
  Learn More <ChevronRight className="ml-1 h-4 w-4" />
  </div>

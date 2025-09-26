@@ -73,10 +73,10 @@ export default function AboutPage() {
  </CardHeader>
  <CardContent className="space-y-4">
  <p className="text-gray-600">
- Our mission is to make language learning accessible to everyone, regardless of their background or experience level. We believe that language learning should be fun, engaging, and effective, and we\'re committed to creating a platform that delivers just that.
+ Our mission is to make language learning accessible to everyone, regardless of their background or experience level. We believe that language learning should be fun, engaging, and effective, and we're committed to creating a platform that delivers just that.
  </p>
  <p className="text-gray-600">
- We're dedicated to providing high-quality, personalized language learning experiences that help our users achieve their goals. Whether you\'re a beginner or an advanced learner, we\'re here to support you every step of the way.
+ We're dedicated to providing high-quality, personalized language learning experiences that help our users achieve their goals. Whether you're a beginner or an advanced learner, we're here to support you every step of the way.
  </p>
  </CardContent>
  </Card>

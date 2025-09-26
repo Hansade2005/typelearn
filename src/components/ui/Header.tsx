@@ -1,40 +1,34 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { useTheme } from '@/hooks/useTheme';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet';
+import { Menu, Moon, Sun, LogOut, User, BookOpen, Award, Users, Target } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
- { name: 'Home', path: '/' },
- { name: 'Lessons', path: '/lessons' },
- { name: 'Flashcards', path: '/flashcards' },
- { name: 'Streak', path: '/streak' },
- { name: 'Leaderboard', path: '/leaderboard' },
- { name: 'Skill Tree', path: '/skill-tree' },
- { name: 'About', path: '/about' },
- { name: 'Contact', path: '/contact' }
+ { name: 'Home', path: '/', icon: BookOpen },
+ { name: 'Lessons', path: '/lessons', icon: BookOpen },
+ { name: 'Flashcards', path: '/flashcards', icon: Award },
+ { name: 'Leaderboard', path: '/leaderboard', icon: Users },
+ { name: 'Skill Tree', path: '/skill-tree', icon: Target },
 ];
 
 export function Header() {
  const { user, signOut } = useAuth();
+ const { theme, setTheme } = useTheme();
+ const location = useLocation();
  const [isOpen, setIsOpen] = useState(false);
 
  return (
  <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
  <div className="container flex h-16 items-center justify-between">
- <div className="flex items-center">
+ {/* Logo */}
  <Link to="/" className="flex items-center space-x-2">
- <motion.div
- initial={{ scale:0.8, opacity:0 }}
- animate={{ scale:1, opacity:1 }}
- transition={{ duration:0.5 }}
- >
- <span className="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">TypeLearn</span>
- </motion.div>
+ <BookOpen className="h-6 w-6 text-primary" />
+ <span className="font-bold text-xl bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">TypeLearn</span>
  </Link>
- </div>
 
  {/* Desktop Navigation */}
  <nav className="hidden md:flex items-center space-x-6">
@@ -42,62 +36,108 @@ export function Header() {
  <Link
  key={item.path}
  to={item.path}
- className="text-sm font-medium transition-colors hover:text-primary"
+ className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${location.pathname === item.path ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}
  >
- {item.name}
+ <item.icon className="h-4 w-4" />
+ <span>{item.name}</span>
  </Link>
  ))}
-
- {user ? (
- <Button variant="ghost" onClick={signOut} className="text-sm">
- Sign Out
- </Button>
- ) : (
- <Link to="/login">
- <Button variant="ghost" className="text-sm">
- Sign In
- </Button>
- </Link>
- )}
  </nav>
 
- {/* Mobile Navigation */}
- <div className="md:hidden">
+ {/* Actions */}
+ <div className="flex items-center space-x-2">
+ {/* Theme Toggle */}
+ <Button
+ variant="ghost"
+ size="icon"
+ onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+ className="rounded-full"
+ >
+ {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+ </Button>
+
+ {/* User Actions */}
+ {user ? (
+ <div className="flex items-center space-x-2">
+ <Link to="/profile">
+ <Button variant="ghost" size="icon" className="rounded-full">
+ <User className="h-5 w-5" />
+ </Button>
+ </Link>
+ <Button
+ variant="ghost"
+ size="icon"
+ onClick={signOut}
+ className="rounded-full"
+ >
+ <LogOut className="h-5 w-5" />
+ </Button>
+ </div>
+ ) : (
+ <Link to="/login">
+ <Button>Login</Button>
+ </Link>
+ )}
+
+ {/* Mobile Menu Button */}
  <Sheet open={isOpen} onOpenChange={setIsOpen}>
  <SheetTrigger asChild>
- <Button variant="ghost" size="icon">
- <Menu className="h-6 w-6" />
- <span className="sr-only">Toggle menu</span>
+ <Button variant="ghost" size="icon" className="md:hidden rounded-full">
+ <Menu className="h-5 w-5" />
  </Button>
  </SheetTrigger>
- <SheetContent side="right" className="w-[300px] sm:w-[400px]">
- <nav className="flex flex-col space-y-4 mt-8">
+
+ <SheetContent side="right" className="w-[300px] sm:w-[400px] p-0">
+ <div className="flex flex-col h-full">
+ <div className="p-4 border-b">
+ <Link to="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
+ <BookOpen className="h-6 w-6 text-primary" />
+ <span className="font-bold text-xl bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">TypeLearn</span>
+ </Link>
+ </div>
+
+ <nav className="flex-1 overflow-y-auto p-4">
  {navItems.map((item) => (
  <Link
  key={item.path}
  to={item.path}
- className="text-sm font-medium transition-colors hover:text-primary"
  onClick={() => setIsOpen(false)}
+ className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${location.pathname === item.path ? 'bg-accent text-accent-foreground' : 'hover:bg-accent hover:text-accent-foreground'}`}
  >
- {item.name}
+ <item.icon className="h-4 w-4" />
+ <span>{item.name}</span>
  </Link>
  ))}
+ </nav>
 
+ <div className="p-4 border-t">
  {user ? (
- <Button variant="ghost" onClick={() => {
- signOut();
- setIsOpen(false);
- }} className="text-sm justify-start">
- Sign Out
- </Button>
- ) : (
- <Link to="/login" onClick={() => setIsOpen(false)}>
- <Button variant="ghost" className="text-sm justify-start">
- Sign In
+ <div className="flex flex-col space-y-2">
+ <Link to="/profile" onClick={() => setIsOpen(false)}>
+ <Button variant="outline" className="w-full justify-start">
+ <User className="h-4 w-4 mr-2" />
+ Profile
  </Button>
  </Link>
+ <Button
+ variant="outline"
+ className="w-full justify-start"
+ onClick={() => {
+ signOut();
+ setIsOpen(false);
+ }}
+ >
+ <LogOut className="h-4 w-4 mr-2" />
+ Sign Out
+ </Button>
+ </div>
+ ) : (
+ <Link to="/login" onClick={() => setIsOpen(false)}>
+ <Button className="w-full">Login</Button>
+ </Link>
  )}
- </nav>
+ </div>
+ </div>
  </SheetContent>
  </Sheet>
  </div>
